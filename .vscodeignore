@@ -1,8 +1,9 @@
+.githooks/**
 .vscode/**
 node_modules/**
+**/*.map
 src/**
 test/**
 .nvmrc
-tsconfig.json
-**/*.map
 eslint.config.mjs
+tsconfig.json
