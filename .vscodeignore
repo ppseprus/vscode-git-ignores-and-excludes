@@ -1,9 +1,13 @@
 .githooks/**
+.github/**
 .vscode/**
 node_modules/**
 **/*.map
 src/**
 test/**
+.editorconfig
+.gitignore
 .nvmrc
 eslint.config.mjs
 tsconfig.json
+*.vsix
