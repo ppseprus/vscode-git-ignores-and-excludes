@@ -1,0 +1,226 @@
+{
+  "name": "vscode-git-ignores-and-excludes",
+  "displayName": "Git Ignores & Excludes",
+  "description": "Keep your own notes and working files in the repo without committing them. Manage .git/info/exclude from the explorer, and see which rule ignores or excludes any file.",
+  "version": "0.1.0",
+  "publisher": "ppseprus",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ppseprus/vscode-git-ignores-and-excludes.git"
+  },
+  "private": true,
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "Runs git inside the workspace and writes to its .git/info/exclude file."
+    },
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "Needs a local file system and git on the PATH."
+    }
+  },
+  "categories": [
+    "SCM Providers"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "gie.addToLocalExcludes",
+        "title": "Exclude Locally",
+        "category": "Git Ignores & Excludes"
+      },
+      {
+        "command": "gie.removeFromLocalExcludes",
+        "title": "Remove from Local Excludes",
+        "category": "Git Ignores & Excludes"
+      },
+      {
+        "command": "gie.openLocalExcludes",
+        "title": "Open Local Excludes",
+        "category": "Git Ignores & Excludes"
+      },
+      {
+        "command": "gie.explainIgnore",
+        "title": "Reveal Exclusion Pattern",
+        "category": "Git Ignores & Excludes"
+      },
+      {
+        "command": "gie.showScanTimings",
+        "title": "Show Scan Log",
+        "category": "Git Ignores & Excludes"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "gie.addToLocalExcludes",
+          "when": "gie.inRepository",
+          "group": "6_copypath_gie@10"
+        },
+        {
+          "command": "gie.removeFromLocalExcludes",
+          "when": "gie.inRepository",
+          "group": "6_copypath_gie@20"
+        },
+        {
+          "command": "gie.explainIgnore",
+          "when": "gie.inRepository",
+          "group": "6_copypath_gie@30"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "gie.addToLocalExcludes",
+          "when": "gie.inRepository && resourceScheme == file"
+        },
+        {
+          "command": "gie.removeFromLocalExcludes",
+          "when": "gie.inRepository && resourceScheme == file"
+        },
+        {
+          "command": "gie.explainIgnore",
+          "when": "gie.inRepository && resourceScheme == file"
+        },
+        {
+          "command": "gie.openLocalExcludes",
+          "when": "true"
+        },
+        {
+          "command": "gie.showScanTimings",
+          "when": "true"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "gie.openLocalExcludes",
+        "key": "ctrl+k ctrl+e",
+        "mac": "cmd+k cmd+e"
+      }
+    ],
+    "configuration": [
+      {
+        "title": "Git Ignores & Excludes",
+        "order": 1,
+        "properties": {
+          "gitIgnoresAndExcludes.badges.enabled": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Show a badge in the File Explorer on ignored and excluded files, telling the three sources apart. Tooltips are shown either way. This covers the badge only: to mute a color, set it to whatever `gitDecoration.ignoredResourceForeground` resolves to in your theme under `workbench.colorCustomizations`."
+          }
+        }
+      },
+      {
+        "title": "Local Excludes",
+        "order": 2,
+        "properties": {
+          "gitIgnoresAndExcludes.badges.localExcludes": {
+            "type": "string",
+            "default": "＊",
+            "pattern": "^.{0,2}$",
+            "patternErrorMessage": "A badge is at most two characters.",
+            "markdownDescription": "Badge for files excluded by `.git/info/exclude`, which is never committed. Defaults to the fullwidth asterisk (U+FF0A), which fills the badge slot more evenly than an ASCII asterisk. One or two characters, or empty for no badge."
+          }
+        },
+        "markdownDescription": "Files excluded by `.git/info/exclude`, which is never committed and nobody else sees.\n\nThey keep the color VS Code gives ignored files. To color them differently, set `gitIgnoresAndExcludes.localExcludesForeground` under `workbench.colorCustomizations`."
+      },
+      {
+        "title": "Global Excludes",
+        "order": 3,
+        "properties": {
+          "gitIgnoresAndExcludes.badges.globalExcludes": {
+            "type": "string",
+            "default": "",
+            "pattern": "^.{0,2}$",
+            "patternErrorMessage": "A badge is at most two characters.",
+            "markdownDescription": "Badge for files excluded by the global excludes file (`core.excludesFile`), which applies to every repository. Empty by default, since a global rule is your own standing choice. One or two characters, or empty for no badge."
+          }
+        },
+        "markdownDescription": "Files excluded by the file `core.excludesFile` names, which applies to every repository you clone.\n\nThey keep the color VS Code gives ignored files. To color them differently, set `gitIgnoresAndExcludes.globalExcludesForeground` under `workbench.colorCustomizations`."
+      },
+      {
+        "title": "Repository Ignores",
+        "order": 4,
+        "properties": {
+          "gitIgnoresAndExcludes.badges.repositoryIgnores": {
+            "type": "string",
+            "default": "",
+            "pattern": "^.{0,2}$",
+            "patternErrorMessage": "A badge is at most two characters.",
+            "markdownDescription": "Badge for files ignored by a committed `.gitignore` at any depth. Empty by default, since a committed rule is shared and expected. One or two characters, or empty for no badge."
+          }
+        },
+        "markdownDescription": "Files ignored by a committed `.gitignore`, so everyone on the team ignores them too.\n\nThey keep the color VS Code gives ignored files. To color them differently, set `gitIgnoresAndExcludes.repositoryIgnoresForeground` under `workbench.colorCustomizations`."
+      }
+    ],
+    "colors": [
+      {
+        "id": "gitIgnoresAndExcludes.localExcludesForeground",
+        "description": "Files excluded by .git/info/exclude (never committed). Defaults to the color VS Code already uses for ignored files.",
+        "defaults": {
+          "dark": "gitDecoration.ignoredResourceForeground",
+          "light": "gitDecoration.ignoredResourceForeground",
+          "highContrast": "gitDecoration.ignoredResourceForeground",
+          "highContrastLight": "gitDecoration.ignoredResourceForeground"
+        }
+      },
+      {
+        "id": "gitIgnoresAndExcludes.globalExcludesForeground",
+        "description": "Files excluded by the global excludes file (core.excludesFile). Defaults to the color VS Code already uses for ignored files.",
+        "defaults": {
+          "dark": "gitDecoration.ignoredResourceForeground",
+          "light": "gitDecoration.ignoredResourceForeground",
+          "highContrast": "gitDecoration.ignoredResourceForeground",
+          "highContrastLight": "gitDecoration.ignoredResourceForeground"
+        }
+      },
+      {
+        "id": "gitIgnoresAndExcludes.repositoryIgnoresForeground",
+        "description": "Files ignored by a committed .gitignore. Defaults to the color VS Code already uses for ignored files.",
+        "defaults": {
+          "dark": "gitDecoration.ignoredResourceForeground",
+          "light": "gitDecoration.ignoredResourceForeground",
+          "highContrast": "gitDecoration.ignoredResourceForeground",
+          "highContrastLight": "gitDecoration.ignoredResourceForeground"
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "prepare": "git config core.hooksPath .githooks || true",
+    "lint": "eslint .",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test:performance": "npm run compile && node --test test/performance.mjs",
+    "test": "npm run compile && node --test test/*.test.mjs",
+    "vscode:prepublish": "npm run compile",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^4.0.0",
+    "eslint": "^10.11.0",
+    "eslint-plugin-perfectionist": "^5.12.0",
+    "globals": "^17.12.0",
+    "typescript": "^5.4.0",
+    "typescript-eslint": "^8.70.1"
+  },
+  "keywords": [
+    "git",
+    "gitignore",
+    "exclude",
+    "working files",
+    "local ignore"
+  ]
+}
