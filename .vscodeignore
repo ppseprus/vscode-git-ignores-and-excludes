@@ -5,3 +5,4 @@ test/**
 .nvmrc
 tsconfig.json
 **/*.map
+eslint.config.mjs
