@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    /* Base Options */
+    "target": "ES2022",
+    "module": "CommonJS",
+    "lib": ["ES2022"],
+    "types": ["node", "vscode"],
+
+    /* Strictness */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+
+    /* Emit */
+    "outDir": "out",
+    "rootDir": "src",
+    "sourceMap": true,
+    "removeComments": true,
+
+    /* Interop */
+    "esModuleInterop": true,
+
+    /* Other */
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "out"]
+}
