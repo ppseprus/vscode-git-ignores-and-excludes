@@ -12,6 +12,8 @@ Every clone has a local excludes file: `.git/info/exclude`. It lives with the re
 
 It also tells the three sources apart. A file can be ignored by a committed `.gitignore` the whole team shares, excluded by your global excludes file that applies to every repository, or excluded by the local excludes file of this one repository. VS Code dims all three the same gray, so your own working file looks like a build artifact. Hovering any ignored or excluded file now names the source file, the line, and the pattern that matched, and you can set a badge and color for each source.
 
+The default badge and the extension's icon are the same mark: ※, the Japanese reference mark, or komejirushi. It does the job of the asterisk in English and calls attention to a note. In Japanese writing, though, the note follows the mark inline, right there in the text, rather than at the foot of the page. A locally excluded file is exactly that: your own note, kept next to the code and nowhere else. The English asterisk would say the same, but drawn large as an icon it collides with the Claude logo.
+
 ## Features
 
 - **Exclude Locally.** Adds the selected files or folders to `.git/info/exclude`. *Explorer context menu, Command palette.*
@@ -29,7 +31,7 @@ Badges are configurable under **Git Ignores & Excludes** in Settings. Each accep
 | Setting | Default | Applies to |
 | --- | --- | --- |
 | `gitIgnoresAndExcludes.badges.enabled` | `true` | turns all badges off, keeping colors and tooltips. Colors are muted through `workbench.colorCustomizations` instead. (See Color Customizations below) |
-| `gitIgnoresAndExcludes.badges.localExcludes` | `＊` | `.git/info/exclude`, never committed |
+| `gitIgnoresAndExcludes.badges.localExcludes` | `※` | `.git/info/exclude`, never committed |
 | `gitIgnoresAndExcludes.badges.globalExcludes` | empty | `core.excludesFile`, every repository |
 | `gitIgnoresAndExcludes.badges.repositoryIgnores` | empty | a committed `.gitignore`, at any depth |
 

@@ -40,7 +40,7 @@ describe('IgnoreDecorationProvider', () => {
     assert.deepEqual(log.batches, [files.length + 1])
 
     const [excluded, ignored, tracked] = decorations
-    assert.equal(excluded.badge, '＊')
+    assert.equal(excluded.badge, '※')
     assert.match(excluded.tooltip, /^Excluded {2}\n\.git\/info\/exclude:1, "\/notes\.md"/)
     assert.equal(excluded.color.id, 'gitIgnoresAndExcludes.localExcludesForeground')
     assert.equal(ignored.badge, undefined)

@@ -4,6 +4,7 @@
   "description": "Keep your own notes and working files in the repo without committing them. Manage .git/info/exclude from the explorer, and see which rule ignores or excludes any file.",
   "version": "0.1.0",
   "publisher": "ppseprus",
+  "icon": "komejirushi.png",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -124,10 +125,10 @@
         "properties": {
           "gitIgnoresAndExcludes.badges.localExcludes": {
             "type": "string",
-            "default": "＊",
+            "default": "※",
             "pattern": "^.{0,2}$",
             "patternErrorMessage": "A badge is at most two characters.",
-            "markdownDescription": "Badge for files excluded by `.git/info/exclude`, which is never committed. Defaults to the fullwidth asterisk (U+FF0A), which fills the badge slot more evenly than an ASCII asterisk. One or two characters, or empty for no badge."
+            "markdownDescription": "Badge for files excluded by `.git/info/exclude`, which is never committed. Defaults to the reference mark ※ (U+203B). One or two characters, or empty for no badge."
           }
         },
         "markdownDescription": "Files excluded by `.git/info/exclude`, which is never committed and nobody else sees.\n\nThey keep the color VS Code gives ignored files. To color them differently, set `gitIgnoresAndExcludes.localExcludesForeground` under `workbench.colorCustomizations`."

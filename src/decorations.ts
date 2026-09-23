@@ -26,9 +26,8 @@ const BADGE_SETTING: Record<IgnoreSource, string> = {
  * global one is the user's own standing choice.
  */
 const DEFAULT_BADGE: Record<IgnoreSource, string> = {
-  // Fullwidth asterisk (U+FF0A): the ASCII one renders thin and high in the
-  // badge slot.
-  localExcludes: '＊',
+  // Reference mark (U+203B), the Japanese note marker. See the README for why.
+  localExcludes: '※',
   globalExcludes: '',
   repositoryIgnores: ''
 }
