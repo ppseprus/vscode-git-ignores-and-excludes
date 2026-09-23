@@ -131,7 +131,7 @@
             "markdownDescription": "Badge for files excluded by `.git/info/exclude`, which is never committed. Defaults to the reference mark ※ (U+203B). One or two characters, or empty for no badge."
           }
         },
-        "markdownDescription": "Files excluded by `.git/info/exclude`, which is never committed and nobody else sees.\n\nThey keep the color VS Code gives ignored files. To color them differently, set `gitIgnoresAndExcludes.localExcludesForeground` under `workbench.colorCustomizations`."
+        "markdownDescription": "Files excluded by `.git/info/exclude`, which is never committed.\n\nThey keep the color VS Code gives ignored files. To color them differently, set `gitIgnoresAndExcludes.localExcludesForeground` under `workbench.colorCustomizations`."
       },
       {
         "title": "Global Excludes",
