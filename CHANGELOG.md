@@ -2,6 +2,19 @@
 
 All notable changes to this extension are recorded here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.2.0
+
+2026-09-23
+
+### Added
+
+- Extension icon: the reference mark ※.
+- The `git.path` setting is honoured, including its list form, instead of always taking git from `PATH`.
+
+### Changed
+
+- The default badge for locally excluded files is the reference mark ※ instead of the fullwidth asterisk ＊.
+
 ## 0.1.0
 
 2026-09-23
