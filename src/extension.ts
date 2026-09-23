@@ -5,8 +5,12 @@ import { IgnoreDecorationProvider } from './decorations'
 import { CommandHandler, createCommands } from './commands'
 import { describeError, ScanLog } from './log'
 import { CONFIGURATION_SECTION } from './constants'
+import { useGitExecutable } from './git'
 
 export function activate(context: vscode.ExtensionContext): void {
+  const followGitPath = () => useGitExecutable(vscode.workspace.getConfiguration('git').get<string | string[]>('path'))
+  followGitPath()
+
   const log = new ScanLog()
   const repositories = new RepositoryRegistry((activity, error) => log.recordFailure(activity, error))
   let firstResolutionLogged = false
@@ -91,6 +95,12 @@ export function activate(context: vscode.ExtensionContext): void {
 
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration((event) => {
+      if (event.affectsConfiguration('git.path')) {
+        followGitPath()
+        repositories.invalidate()
+        followWorkspace()
+        refreshDecorations()
+      }
       if (
         event.affectsConfiguration(CONFIGURATION_SECTION) ||
         event.affectsConfiguration('workbench.colorCustomizations')

@@ -63,4 +63,6 @@ _Note: The extension ships without changing any colors. All three sources keep t
 
 **A nested repository counts once the parent tracks it.** A repository inside another one is treated as its own as soon as the parent has it in the index, as a submodule or a plain gitlink. One that was only cloned or initialised inside the parent and never added is seen as part of the parent: its files are classified by the parent's rules, and *Exclude Locally* writes to the parent's excludes file. Add it to the workspace as its own folder to work on it directly.
 
+**Git comes from `git.path` when set, otherwise from `PATH`.** The same setting the built-in Git extension uses, including its list form, where the first path that exists wins.
+
 **Badges compete with the built-in Git extension.** VS Code renders one badge per row, and the built-in Git decorations also claim ignored files. If a badge does not appear, setting `git.decorations.enabled` to false hands the row over, at the cost of the built-in modified and untracked markers. Colors and tooltips are unaffected either way.

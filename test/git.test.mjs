@@ -1,6 +1,6 @@
 import { after, describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { symlinkSync } from 'node:fs'
+import { chmodSync, existsSync, symlinkSync } from 'node:fs'
 import { homedir } from 'node:os'
 import path from 'node:path'
 import { load } from './load.mjs'
@@ -13,7 +13,8 @@ const {
   findIgnoreMatches,
   findGitlinkPaths,
   findIndexFile,
-  resolveSymlinks
+  resolveSymlinks,
+  useGitExecutable
 } = load('git')
 
 const created = []
@@ -23,6 +24,24 @@ const repository = () => {
   return root
 }
 after(() => created.forEach(remove))
+
+describe('useGitExecutable', () => {
+  after(() => useGitExecutable(undefined))
+
+  it('runs the first existing candidate and falls back to PATH otherwise', async () => {
+    const root = repository()
+    const marker = path.join(root, 'ran')
+    const wrapper = write(root, 'git-wrapper', `#!/bin/sh\ntouch "${marker}"\nexec git "$@"\n`)
+    chmodSync(wrapper, 0o755)
+
+    useGitExecutable([path.join(root, 'missing'), wrapper])
+    assert.equal(await findRepositoryRoot(root), resolveSymlinks(root))
+    assert.ok(existsSync(marker))
+
+    useGitExecutable(path.join(root, 'missing'))
+    await withoutGit(() => assert.rejects(findRepositoryRoot(root), /Could not run git/))
+  })
+})
 
 describe('resolveSymlinks', () => {
   it('follows a symlink and passes a missing path through', () => {

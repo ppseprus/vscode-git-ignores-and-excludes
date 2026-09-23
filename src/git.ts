@@ -26,6 +26,17 @@ export interface IgnoreMatch {
 /** The mode `git ls-files --stage` prints for a gitlink. */
 const GITLINK_MODE = '160000 '
 
+let gitExecutable = 'git'
+
+/**
+ * Follows VS Code's `git.path`: a path or a list of paths, the first that
+ * exists wins, and none means git from `PATH`.
+ */
+export function useGitExecutable(candidates: string | string[] | undefined): void {
+  const paths = typeof candidates === 'string' ? [candidates] : (candidates ?? [])
+  gitExecutable = paths.find((candidate) => candidate !== '' && fs.existsSync(candidate)) ?? 'git'
+}
+
 /**
  * Git ran and refused. Git being missing or its output truncated is a plain
  * Error, so a caller can take "no" for an answer without swallowing the rest.
@@ -44,7 +55,7 @@ export class GitExitError extends Error {
 function runGit(workingDirectory: string, gitArguments: string[], standardInput?: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const child = execFile(
-      'git',
+      gitExecutable,
       gitArguments,
       { cwd: workingDirectory, maxBuffer: GIT_OUTPUT_BUFFER_BYTES, windowsHide: true },
       (error, standardOutput: string, standardError: string) => {
