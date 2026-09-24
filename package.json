@@ -2,7 +2,7 @@
   "name": "vscode-git-ignores-and-excludes",
   "displayName": "Git Ignores & Excludes",
   "description": "Keep your own notes and working files in the repo without committing them. Manage .git/info/exclude from the explorer, and see which rule ignores or excludes any file.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "ppseprus",
   "icon": "komejirushi.png",
   "license": "MIT",
