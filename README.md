@@ -4,7 +4,7 @@ Keep your own notes and working files in the repo without committing them. Manag
 
 ## Motivation
 
-Working inside a repository often produces files that belong with the repo but must never be committed. Think of them as notes scribbled in the margins of your own copy of the book. Adding them to `.gitignore` turns your clutter into noise for everyone else.
+Working inside a repository often produces files that belong with the repo but must never be committed. Think of them as notes scribbled in the margins of your own copy of a book. Adding them to `.gitignore` turns your clutter into noise for everyone else.
 
 Git already has a place for exactly this: read [.gitignore Isn't the Only Way To Ignore Files in Git](https://nelson.cloud/.gitignore-isnt-the-only-way-to-ignore-files-in-git/) by Nelson Figueroa.
 
@@ -66,3 +66,7 @@ _Note: The extension ships without changing any colors. All three sources keep t
 **Git comes from `git.path` when set, otherwise from `PATH`.** The same setting the built-in Git extension uses, including its list form, where the first path that exists wins.
 
 **Badges compete with the built-in Git extension.** VS Code renders one badge per row, and the built-in Git decorations also claim ignored files. If a badge does not appear, setting `git.decorations.enabled` to false hands the row over, at the cost of the built-in modified and untracked markers. Colors and tooltips are unaffected either way.
+
+## See also
+
+[git-exclude](https://github.com/ppseprus/git-exclude) manages the same file from the terminal, as `git exclude`. Install via Homebrew from `ppseprus/tap/git-exclude`.
